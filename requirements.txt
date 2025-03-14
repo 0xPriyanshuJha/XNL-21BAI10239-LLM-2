@@ -1,0 +1,46 @@
+# Core dependencies
+numpy
+pandas
+tqdm
+scikit-learn
+matplotlib
+seaborn
+
+# Hugging Face Transformers & Dataset
+torch
+torchvision
+torchaudio
+transformers
+datasets
+tokenizers
+
+# Multi-GPU & Distributed Training
+accelerate
+deepspeed
+
+# Hyperparameter Optimization
+optuna
+
+# Logging & Monitoring
+wandb
+tensorboard
+
+# AI Agents & Automation
+langchain
+openai
+autogen
+
+# Cloud Storage & Deployment
+boto3
+google-cloud-storage
+fastapi
+uvicorn
+gunicorn
+
+# Environment Variable Handling
+python-dotenv
+
+# API & Web Framework
+httpx
+requests
+pydantic
