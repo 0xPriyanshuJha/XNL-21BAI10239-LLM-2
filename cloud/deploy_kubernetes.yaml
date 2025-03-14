@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llama2-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: llama2
+  template:
+    metadata:
+      labels:
+        app: llama2
+    spec:
+      containers:
+      - name: llama2-container
+        image: your-dockerhub-username/llama2-model:latest
+        ports:
+        - containerPort: 8080
