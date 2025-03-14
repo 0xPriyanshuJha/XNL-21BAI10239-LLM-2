@@ -50,3 +50,36 @@ def load_model(modelm=DEFAULT_MODEL, model_type="causal", device="cuda"):
         model = AutoModelForCausalLM.from_pretrained(fallback_model) if model_type == "causal" else AutoModelForSeq2SeqLM.from_pretrained(fallback_model)
         model = model.to(device)
         return model
+
+def load_tokenizer(modelm=DEFAULT_MODEL):
+    try:
+        tokenizer = AutoTokenizer.from_pretrained(modelm)
+        print(f"Successfully loaded tokenizer: {modelm}")
+        return tokenizer
+    except Exception as e:
+        print(f"Error loading tokenizer: {e}")
+        return AutoTokenizer.from_pretrained("gpt2")
+
+def create_model_config(modelm=DEFAULT_MODEL, config_path="config/model_config.yaml"):
+    try:
+        config = AutoConfig.from_pretrained(modelm)
+
+        config_dict = {
+            "model_name": modelm,
+            "hidden_size": getattr(config, "hidden_size", None),
+            "num_hidden_layers": getattr(config, "num_hidden_layers", None),
+            "num_attention_heads": getattr(config, "num_attention_heads", None),
+            "intermediate_size": getattr(config, "intermediate_size", None),
+            "activation_function": getattr(config, "hidden_act", None),
+            "vocab_size": getattr(config, "vocab_size", None),
+            "max_position_embeddings": getattr(config, "max_position_embeddings", None),
+        }
+        
+        os.makedirs(os.path.dirname(config_path), exist_ok=True)
+        with open(config_path, 'w') as f:
+            yaml.dump(config_dict, f, default_flow_style=False)
+        
+        print(f"Model configuration saved to {config_path}")
+    
+    except Exception as e:
+        print(f"Error creating model configuration: {e}")
